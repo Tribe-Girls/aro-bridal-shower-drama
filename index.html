@@ -512,15 +512,10 @@
     <!-- MAIN STORY -->
     <!-- Background Music Player -->
     <audio id="backgroundMusic" loop preload="auto">
-        <!-- TO ADD YOUR M4A MUSIC FILE: -->
-        <!-- STEP 1: Upload your M4A file to the same folder as this HTML file -->
-        <!-- STEP 2: Uncomment the line below and replace "your-music-file.m4a" with your actual filename -->
-        <!-- <source src="your-music-file.m4a" type="audio/mp4"> -->
-        
-        <!-- For better browser compatibility, you can also add an MP3 version: -->
-        <!-- <source src="your-music-file.mp3" type="audio/mpeg"> -->
-        
-        <!-- Your browser doesn't support the audio element, but the visual drama continues! -->
+        <source src="gossip-girl-theme.m4a" type="audio/mp4">
+        <!-- Fallback for older browsers -->
+        <source src="gossip-girl-theme.mp3" type="audio/mpeg">
+        Your browser doesn't support the audio element, but the visual drama continues!
     </audio>
     
     <!-- Music Controls -->

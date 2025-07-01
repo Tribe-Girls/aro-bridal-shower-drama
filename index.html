@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Tribe Chronicles: The Great Henna Escape</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@400;700&display=swap');
@@ -441,20 +441,163 @@
         }
 
         .music-control-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: rgba(255,255,255,0.2);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 12px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
-            font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+            backdrop-filter: blur(5px);
+            opacity: 0.7;
         }
 
         .music-control-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            opacity: 1;
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .disclaimer-title {
+                font-size: 1.5rem;
+            }
+            
+            .warning-icon {
+                font-size: 4rem;
+            }
+            
+            .warning-text {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .disclaimer-box {
+                padding: 20px;
+                margin: 15px 10px;
+            }
+            
+            .enter-button, .exit-button {
+                padding: 12px 20px;
+                font-size: 1rem;
+                margin: 8px 5px;
+                width: calc(100% - 20px);
+                max-width: 280px;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+                padding: 0 10px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .story-container {
+                padding: 10px;
+            }
+            
+            .chapter {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .chapter-header {
+                font-size: 1.3rem;
+            }
+            
+            .phone-message {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .thinking-bubble {
+                padding: 12px;
+                font-size: 0.9rem;
+                margin-left: 10px;
+            }
+            
+            .reaction-box {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+            
+            .interactive-button {
+                padding: 12px 20px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .countdown {
+                font-size: 2rem;
+            }
+            
+            .verdict {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+            
+            #musicControls {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+            }
+            
+            .music-control-btn {
+                padding: 6px 10px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .disclaimer-title {
+                font-size: 1.3rem;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+            
+            .chapter-header {
+                font-size: 1.2rem;
+            }
+            
+            .warning-text {
+                font-size: 0.9rem;
+            }
+            
+            .disclaimer-list {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Ensure content fits screen height */
+        @media (max-height: 600px) {
+            .disclaimer-screen {
+                padding: 15px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            
+            .warning-icon {
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+            
+            .disclaimer-title {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+            
+            .disclaimer-box {
+                padding: 15px;
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
@@ -519,9 +662,8 @@
     </audio>
     
     <!-- Music Controls -->
-    <div id="musicControls" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 10px; color: white;">
-        <button id="musicToggle" class="music-control-btn">🔊 Stop Music</button>
-        <div style="margin-top: 10px; font-size: 0.9rem;">♪ Drama Mode: ON</div>
+    <div id="musicControls" style="display: none; position: fixed; top: 15px; right: 15px; z-index: 1000; background: rgba(0,0,0,0.4); padding: 8px 12px; border-radius: 20px; color: white; backdrop-filter: blur(10px);">
+        <button id="musicToggle" class="music-control-btn">🔊</button>
     </div>
 
     <!-- Background Music Simulation -->
@@ -667,27 +809,41 @@
             
             musicContainer.style.display = 'block';
             
-            // Try to play background music (user needs to add their own file)
-            if (backgroundMusic.src) {
-                backgroundMusic.play().catch(e => {
-                    console.log('Background music needs user interaction to play');
-                });
-            }
+            // Force play the background music with user interaction
+            let musicPlaying = false;
             
-            // Setup music control
-            let musicPlaying = true;
-            musicToggle.addEventListener('click', function() {
+            // Try to play immediately since user just clicked
+            backgroundMusic.play().then(() => {
+                musicPlaying = true;
+                musicToggle.textContent = '🔊';
+                console.log('Music started playing!');
+            }).catch(e => {
+                console.log('Music needs manual start');
+                musicToggle.textContent = '▶️';
+            });
+            
+            // Setup music control with smaller interface
+            musicToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
                 if (musicPlaying) {
                     backgroundMusic.pause();
-                    this.textContent = '🔇 Play Music';
-                    this.nextElementSibling.textContent = '♪ Drama Mode: OFF';
+                    this.textContent = '▶️';
                     musicPlaying = false;
                 } else {
-                    backgroundMusic.play().catch(e => console.log('Music play failed'));
-                    this.textContent = '🔊 Stop Music';
-                    this.nextElementSibling.textContent = '♪ Drama Mode: ON';
-                    musicPlaying = true;
+                    backgroundMusic.play().then(() => {
+                        this.textContent = '🔊';
+                        musicPlaying = true;
+                    }).catch(e => {
+                        console.log('Music play failed');
+                        this.textContent = '❌';
+                    });
                 }
+            });
+            
+            // Monitor if music ends (shouldn't with loop, but just in case)
+            backgroundMusic.addEventListener('ended', function() {
+                musicPlaying = false;
+                musicToggle.textContent = '▶️';
             });
             
             // Create floating musical notes

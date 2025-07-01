@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>The Tribe Chronicles: The Great Henna Escape</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@400;700&display=swap');
@@ -17,7 +19,15 @@
             font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Fix for iOS Safari viewport issues */
+        html {
+            height: -webkit-fill-available;
         }
 
         /* DISCLAIMER SCREEN STYLES */
@@ -26,7 +36,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            height: -webkit-fill-available;
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             display: flex;
             flex-direction: column;
@@ -35,7 +46,10 @@
             z-index: 9999;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px);
+            box-sizing: border-box;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .disclaimer-screen.hidden {
@@ -166,10 +180,13 @@
         .story-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px);
             position: relative;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            box-sizing: border-box;
         }
 
         .story-container.visible {
@@ -461,12 +478,20 @@
 
         /* Enhanced Mobile Responsiveness */
         @media (max-width: 480px) {
+            .disclaimer-screen {
+                padding: max(env(safe-area-inset-top), 15px) 15px max(env(safe-area-inset-bottom), 15px);
+                justify-content: flex-start;
+                padding-top: max(env(safe-area-inset-top), 30px);
+            }
+            
             .disclaimer-title {
                 font-size: 1.5rem;
+                margin-top: 20px;
             }
             
             .warning-icon {
                 font-size: 4rem;
+                margin-bottom: 15px;
             }
             
             .warning-text {
@@ -487,18 +512,19 @@
                 max-width: 280px;
             }
             
+            .story-container {
+                padding: max(env(safe-area-inset-top), 15px) 15px max(env(safe-area-inset-bottom), 15px);
+            }
+            
             .title {
                 font-size: 1.8rem;
                 padding: 0 10px;
+                margin-top: 20px;
             }
             
             .subtitle {
                 font-size: 1rem;
                 padding: 0 15px;
-            }
-            
-            .story-container {
-                padding: 10px;
             }
             
             .chapter {
@@ -543,8 +569,8 @@
             }
             
             #musicControls {
-                top: 10px;
-                right: 10px;
+                top: max(env(safe-area-inset-top), 15px);
+                right: 15px;
                 padding: 6px 10px;
             }
             
@@ -576,27 +602,55 @@
             }
         }
 
-        /* Ensure content fits screen height */
-        @media (max-height: 600px) {
+        /* Ensure content fits screen height - especially for iPhone landscape */
+        @media (max-height: 600px) and (orientation: landscape) {
             .disclaimer-screen {
-                padding: 15px;
+                padding: 10px;
                 justify-content: flex-start;
                 overflow-y: auto;
             }
             
             .warning-icon {
-                font-size: 3rem;
-                margin-bottom: 10px;
+                font-size: 2.5rem;
+                margin-bottom: 5px;
             }
             
             .disclaimer-title {
-                font-size: 2rem;
-                margin-bottom: 15px;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
             }
             
             .disclaimer-box {
-                padding: 15px;
-                margin: 10px 0;
+                padding: 10px;
+                margin: 5px 0;
+            }
+            
+            .warning-text {
+                font-size: 0.9rem;
+            }
+            
+            .disclaimer-list {
+                font-size: 0.8rem;
+            }
+            
+            .enter-button, .exit-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+                margin: 5px;
+            }
+        }
+        
+        /* iPhone specific fixes */
+        @media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+            /* iPhone 12/13/14 specific adjustments */
+            .disclaimer-screen {
+                padding-top: max(env(safe-area-inset-top), 40px);
+                padding-bottom: max(env(safe-area-inset-bottom), 40px);
+            }
+            
+            .story-container {
+                padding-top: max(env(safe-area-inset-top), 25px);
+                padding-bottom: max(env(safe-area-inset-bottom), 25px);
             }
         }
     </style>

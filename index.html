@@ -421,6 +421,24 @@
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
+
+        @keyframes float-up {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+            20% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+            80% { opacity: 1; transform: translateX(-50%) scale(1); }
+            100% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+        }
     </style>
 </head>
 <body>
@@ -475,6 +493,10 @@
     </div>
 
     <!-- MAIN STORY -->
+    <!-- Background Music Simulation -->
+    <div id="musicNotes" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100;">
+    </div>
+
     <div class="floating-icons icon-1">💃</div>
     <div class="floating-icons icon-2">👯‍♀️</div>
     <div class="floating-icons icon-3">💅</div>
@@ -504,77 +526,78 @@
             </div>
             
             <div class="reaction-box">
-                <h3>Everyone: *confused scrolling noises* 📱</h3>
-                <p>*Re-reading message 5 times*</p>
+                <h3>Everyone's Brain: *Windows XP shutdown sound* 💻</h3>
+                <p>*Collective confused blinking*</p>
             </div>
         </div>
 
         <div class="chapter">
-            <h2 class="chapter-header">Chapter 3: Brain.exe Stopped Working</h2>
+            <h2 class="chapter-header">Chapter 3: English Language Has Left the Chat</h2>
             
             <div class="thinking-bubble">
-                "Wait... mandatory... volunteer? I'm so confused! 😵‍💫"
+                "Mandatory volunteer? That's like saying 'forced choice' or 'required optional'! My GCSE English teacher is crying somewhere! 😭"
             </div>
             
-            <p>The tribe collectively tilted their heads like confused puppies. Is this like "jumbo shrimp" or "deafening silence"? 🤯</p>
+            <p>The tribe collectively experienced what scientists call "brain.exe has stopped responding." It's like saying you're "definitely maybe" coming to something! 🤯</p>
             
-            <button class="interactive-button" onclick="showLogic()">Help Us Understand!</button>
+            <button class="interactive-button" onclick="showLogic()">Press For English Translation!</button>
             <div id="logic-result" style="display: none; margin-top: 20px; padding: 15px; background: #f39c12; color: white; border-radius: 10px;">
-                <strong>BRAIN CELLS HAVE LEFT THE CHAT 🧠❌</strong><br>
-                We're all just confused now!
+                <strong>OXFORD DICTIONARY IS TYPING... ⌨️</strong><br>
+                "Mandatory volunteer" - Error 404: Logic not found!
+                <br><em>Did you mean: "I just don't want to come"?</em>
             </div>
         </div>
 
         <div class="chapter">
-            <h2 class="chapter-header">Chapter 4: Wait, When?!</h2>
+            <h2 class="chapter-header">Chapter 4: The Timing Awards</h2>
             
             <div class="countdown" id="countdown">🕐</div>
-            <p style="text-align: center; margin: 20px 0;"><strong>Event: TOMORROW!</strong></p>
+            <p style="text-align: center; margin: 20px 0;"><strong>Event: Sunday 13th July!</strong></p>
             
             <div class="reaction-box">
-                <h3>The Timing Though! ⏰</h3>
-                <p>We're all just sitting here like... did time travel happen? 😅</p>
+                <h3>🏆 Award for Last-Minute Realizations! 🏆</h3>
+                <p>When you suddenly remember you have "mandatory volunteering" like it's a pop quiz! 📚</p>
             </div>
             
             <div class="thinking-bubble">
-                "Maybe she has a time machine? Or a really last-minute WhatsApp? 🤷‍♀️"
+                "Plot twist: The mosque sent a carrier pigeon this morning! 🐦"
             </div>
         </div>
 
         <div class="chapter">
-            <h2 class="chapter-header">Chapter 5: Group Chat Confusion</h2>
+            <h2 class="chapter-header">Chapter 5: Group Chat Mathematics</h2>
             
-            <button class="interactive-button" onclick="revealVerdict()">What Are We All Thinking?</button>
+            <button class="interactive-button" onclick="revealVerdict()">Let's Do The Math!</button>
             
             <div id="verdict" style="display: none;">
                 <div class="verdict">
-                    <h3>🤔 OFFICIAL STATUS: BAMBOOZLED! 🤔</h3>
-                    <p><strong>Situation:</strong> We're all just confused!</p>
-                    <p><strong>Solution:</strong> Henna brings snacks AND explains oxymorons! 🍰📚</p>
+                    <h3>📊 MATHEMATICAL CONCLUSION! 📊</h3>
+                    <p><strong>Equation:</strong> Mandatory + Volunteer = Does Not Compute</p>
+                    <p><strong>Solution:</strong> Henna brings snacks + Dictionary lessons! 📚🍰</p>
                 </div>
                 
                 <div class="reaction-box">
-                    <h3>The Tribe's Confused Thoughts:</h3>
-                    <p>"We love you Henna but... what?! 😂"</p>
-                    <p>"Our brains are broken! 🤪"</p>
-                    <p>"Next time just say 'can't come' babe! 💕"</p>
+                    <h3>The Tribe's PhD Analysis:</h3>
+                    <p>"Bestie, you just invented a new type of oxymoron! 🧠"</p>
+                    <p>"Shakespeare could never! 📜"</p>
+                    <p>"Next time just say you're washing your hair! 💁‍♀️"</p>
                 </div>
             </div>
         </div>
 
         <div class="chapter">
-            <h2 class="chapter-header">The End!</h2>
-            <p>And so the tribe learned that sometimes excuses are just... really confusing! 📚</p>
+            <h2 class="chapter-header">The Nobel Prize Ending!</h2>
+            <p>And so our tribe discovered a brand new English language phenomenon: The Impossible Excuse! 🏅</p>
             
             <div class="thinking-bubble">
-                "We're all still confused but we love you anyway! 🥰"
+                "Henna just broke the space-time continuum of logic! We're impressed! 🚀"
             </div>
             
             <p style="text-align: center; margin: 30px 0; font-size: 1.2rem; color: #e91e63;">
-                <strong>Group chats: where logic goes to die! 💀💬</strong>
+                <strong>Group chats: Where English goes to get creative! 🎨💬</strong>
             </p>
             
-            <button class="interactive-button" onclick="celebrateEnding()">Still besties! 💕</button>
+            <button class="interactive-button" onclick="celebrateEnding()">Still love you, you linguistic genius! 💕</button>
         </div>
     </div>
 
@@ -582,6 +605,9 @@
         function enterStory() {
             const disclaimerScreen = document.getElementById('disclaimerScreen');
             const storyContainer = document.getElementById('storyContainer');
+            
+            // Start the dramatic music effect
+            startDramaMusic();
             
             // Hide disclaimer with animation
             disclaimerScreen.classList.add('hidden');
@@ -592,11 +618,107 @@
                 storyContainer.classList.add('visible');
                 updateCountdown();
                 
-                // Welcome message
+                // Epic entrance effect
                 setTimeout(() => {
-                    createEmojiRain(['🎉', '👯‍♀️', '📖', '✨']);
+                    createEmojiRain(['🎉', '👯‍♀️', '📖', '✨', '🎭']);
+                    showFloatingText("XOXO, Drama Time! 💋", 3000);
                 }, 500);
             }, 800);
+        }
+
+        function startDramaMusic() {
+            const musicContainer = document.getElementById('musicNotes');
+            musicContainer.style.display = 'block';
+            
+            // Create floating musical notes
+            const musicNotes = ['🎵', '🎶', '🎼', '🎭', '💋'];
+            
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    createFloatingNote(musicNotes[Math.floor(Math.random() * musicNotes.length)]);
+                }
+            }, 2000);
+            
+            // Add dramatic sound effect using Web Audio API
+            playDramaticChord();
+        }
+
+        function createFloatingNote(note) {
+            const noteElement = document.createElement('div');
+            noteElement.textContent = note;
+            noteElement.style.cssText = `
+                position: fixed;
+                font-size: 2rem;
+                color: #ffd700;
+                z-index: 101;
+                pointer-events: none;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                animation: float-up 6s linear forwards;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            `;
+            
+            document.body.appendChild(noteElement);
+            
+            setTimeout(() => {
+                noteElement.remove();
+            }, 6000);
+        }
+
+        function showFloatingText(text, duration) {
+            const textElement = document.createElement('div');
+            textElement.textContent = text;
+            textElement.style.cssText = `
+                position: fixed;
+                top: 20%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 2rem;
+                color: #ffd700;
+                font-weight: bold;
+                text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+                z-index: 1001;
+                pointer-events: none;
+                animation: fadeInOut 3s ease-in-out;
+            `;
+            
+            document.body.appendChild(textElement);
+            
+            setTimeout(() => {
+                textElement.remove();
+            }, duration);
+        }
+
+        function playDramaticChord() {
+            // Create a simple dramatic sound effect using Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create a dramatic chord progression
+                const frequencies = [261.63, 329.63, 392.00]; // C, E, G major chord
+                
+                frequencies.forEach((freq, index) => {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                        oscillator.type = 'triangle';
+                        
+                        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                        gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.1);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                        
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 1);
+                    }, index * 200);
+                });
+            } catch (e) {
+                console.log('Audio not supported, but the visual drama continues!');
+            }
         }
 
         function exitSite() {

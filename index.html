@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Tribe Chronicles: The Great Henna Escape</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* DISCLAIMER SCREEN STYLES */
+        .disclaimer-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .disclaimer-screen.hidden {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.8s ease-in-out;
+            pointer-events: none;
+        }
+
+        .warning-icon {
+            font-size: 8rem;
+            animation: shake 0.5s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .disclaimer-title {
+            font-size: 3rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 0 0 20px #ff6b6b; }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 0 0 30px #ff6b6b, 0 0 40px #ff6b6b; }
+        }
+
+        .warning-text {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            animation: pulse 2s infinite;
+        }
+
+        .disclaimer-box {
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px dashed #ffd700;
+            margin: 20px 0;
+            animation: borderPulse 1.5s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: #ffd700; }
+            50% { border-color: #ff6b6b; }
+        }
+
+        .disclaimer-list {
+            text-align: left;
+            font-size: 1.1rem;
+            margin: 20px 0;
+        }
+
+        .disclaimer-list li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+
+        .enter-button {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            animation: buttonBounce 2s infinite;
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+            font-weight: bold;
+        }
+
+        .exit-button {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+            font-weight: bold;
+        }
+
+        @keyframes buttonBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .enter-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        }
+
+        .exit-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        }
+
+        .disclaimer-emojis {
+            position: absolute;
+            font-size: 3rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .emoji-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .emoji-2 { top: 15%; right: 15%; animation-delay: 1s; }
+        .emoji-3 { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .emoji-4 { bottom: 15%; right: 10%; animation-delay: 0.5s; }
+        .emoji-5 { top: 50%; left: 5%; animation-delay: 1.5s; }
+        .emoji-6 { top: 60%; right: 8%; animation-delay: 0.8s; }
+
+        /* MAIN STORY STYLES */
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .story-container.visible {
+            opacity: 1;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .chapter {
+            background: white;
+            border-radius: 20px;
+            margin: 30px 0;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        .chapter:nth-child(even) {
+            animation-delay: 0.3s;
+        }
+
+        .chapter:nth-child(odd) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chapter-header {
+            font-size: 1.8rem;
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chapter-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .phone-message {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 18px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: scale(0);
+            animation: popIn 0.5s ease-out 1s forwards;
+        }
+
+        @keyframes popIn {
+            to { transform: scale(1); }
+        }
+
+        .phone-message::before {
+            content: '📱';
+            position: absolute;
+            left: -10px;
+            top: -5px;
+            font-size: 1.5rem;
+        }
+
+        .reaction-box {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .thinking-bubble {
+            background: #f39c12;
+            color: white;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 15px 0;
+            position: relative;
+            font-style: italic;
+        }
+
+        .thinking-bubble::before {
+            content: '💭';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .countdown {
+            font-size: 3rem;
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .interactive-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .emoji-rain {
+            position: fixed;
+            top: -50px;
+            font-size: 2rem;
+            z-index: 1000;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .verdict {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 30px 0;
+        }
+
+        .floating-icons {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .icon-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .icon-2 { top: 20%; right: 15%; animation-delay: 2s; }
+        .icon-3 { bottom: 30%; left: 20%; animation-delay: 4s; }
+        .icon-4 { bottom: 10%; right: 10%; animation-delay: 1s; }
+
+        @media (max-width: 768px) {
+            .disclaimer-title {
+                font-size: 2rem;
+            }
+            
+            .warning-icon {
+                font-size: 5rem;
+            }
+            
+            .warning-text {
+                font-size: 1.1rem;
+            }
+            
+            .enter-button, .exit-button {
+                padding: 15px 25px;
+                font-size: 1.2rem;
+                margin: 10px 5px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .story-container {
+                padding: 15px;
+            }
+            
+            .chapter {
+                padding: 20px;
+                margin: 20px 0;
+            }
+            
+            .chapter-header {
+                font-size: 1.5rem;
+            }
+        }
+
+        .dramatic-pause {
+            text-align: center;
+            font-size: 2rem;
+            margin: 30px 0;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- DISCLAIMER SCREEN -->
+    <div class="disclaimer-screen" id="disclaimerScreen">
+        <div class="disclaimer-emojis emoji-1">⚠️</div>
+        <div class="disclaimer-emojis emoji-2">👀</div>
+        <div class="disclaimer-emojis emoji-3">💀</div>
+        <div class="disclaimer-emojis emoji-4">🚨</div>
+        <div class="disclaimer-emojis emoji-5">☠️</div>
+        <div class="disclaimer-emojis emoji-6">🎭</div>
+
+        <div class="warning-icon">⚠️</div>
+        <h1 class="disclaimer-title">DANGER ZONE!</h1>
+        
+        <div class="disclaimer-box">
+            <p class="warning-text">
+                <strong>🚨 FRIENDSHIP DRAMA ALERT! 🚨</strong><br>
+                You are about to enter a satirical story zone!
+            </p>
+            
+            <div class="disclaimer-list">
+                <p><strong>⚠️ WARNINGS:</strong></p>
+                <ul>
+                    <li>🎭 This story is FOR FUN and ENTERTAINMENT only!</li>
+                    <li>😂 Contains excessive sarcasm and friend group call-outs</li>
+                    <li>👯‍♀️ May cause uncontrollable laughter and group chat drama</li>
+                    <li>📱 Side effects include: screenshot sharing and emoji overuse</li>
+                    <li>💀 No real friendships were harmed in the making of this story</li>
+                    <li>🤔 Logic and common sense may be temporarily suspended</li>
+                </ul>
+            </div>
+            
+            <p style="font-size: 1.1rem; color: #ffd700; margin-top: 20px;">
+                <strong>Remember: We love our friends... even when they give sus excuses! 💕</strong>
+            </p>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <button class="enter-button" onclick="enterStory()">
+                🎭 I ACCEPT THE DRAMA! 🎭
+            </button>
+            <br>
+            <button class="exit-button" onclick="exitSite()">
+                😱 TOO SPICY FOR ME! 😱
+            </button>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+            <em>By entering, you agree that this is all love and jokes! 💖</em>
+        </p>
+    </div>
+
+    <!-- MAIN STORY -->
+    <div class="floating-icons icon-1">💃</div>
+    <div class="floating-icons icon-2">👯‍♀️</div>
+    <div class="floating-icons icon-3">💅</div>
+    <div class="floating-icons icon-4">🎉</div>
+
+    <div class="story-container" id="storyContainer">
+        <h1 class="title">The Tribe Chronicles</h1>
+        <p class="subtitle">Episode 47: The Great Henna Escape</p>
+
+        <div class="chapter">
+            <h2 class="chapter-header">Chapter 1: The Perfect Plan</h2>
+            <p>Once upon a time in Birmingham, the tribe was buzzing! Arooza was getting married! 🎊 The squad were planning the PERFECT Sunday bridal shower. The date was sent weeks ago!</p>
+            
+            <div class="thinking-bubble">
+                "This is going to be EPIC! 🤔"
+            </div>
+            
+            <p>Plans were SET. Date was CONFIRMED. Vibes were IMMACULATE.</p>
+        </div>
+
+        <div class="chapter">
+            <h2 class="chapter-header">Chapter 2: The Plot Twist</h2>
+            <p>BUT THEN... 🎭</p>
+            
+            <div class="phone-message">
+                <strong>Henna Nabi:</strong> "Heyy girlsss... can't make the whole day tomorrow... mandatory volunteer training at Birmingham Central Mosque... sorry babes! 🥺"
+            </div>
+            
+            <div class="reaction-box">
+                <h3>RECORD SCRATCH! 📀</h3>
+                <p>*Everyone stops scrolling*</p>
+            </div>
+        </div>
+
+        <div class="chapter">
+            <h2 class="chapter-header">Chapter 3: Wait... What?</h2>
+            
+            <div class="thinking-bubble">
+                "MANDATORY... VOLUNTEER? Girl, pick a lane! 🤨"
+            </div>
+            
+            <p>The tribe scratched their heads. Since when is volunteering mandatory? That's like saying "compulsory optional"! 🤯</p>
+            
+            <button class="interactive-button" onclick="showLogic()">Logic Check!</button>
+            <div id="logic-result" style="display: none; margin-top: 20px; padding: 15px; background: #f39c12; color: white; border-radius: 10px;">
+                <strong>LOGIC.EXE HAS STOPPED WORKING 💻❌</strong><br>
+                Error 404: Sense Not Found
+            </div>
+        </div>
+
+        <div class="chapter">
+            <h2 class="chapter-header">Chapter 4: The Timing!</h2>
+            
+            <div class="countdown" id="countdown">🕐</div>
+            <p style="text-align: center; margin: 20px 0;"><strong>Time until event: TOMORROW!</strong></p>
+            
+            <div class="reaction-box">
+                <h3>Last Minute Lucy entered the chat! 👋</h3>
+                <p>Nothing says friendship like announcing you can't come THE DAY BEFORE! 📅</p>
+            </div>
+            
+            <div class="thinking-bubble">
+                "Did the mosque WhatsApp you today saying 'surprise!'?" 📱
+            </div>
+        </div>
+
+        <div class="chapter">
+            <h2 class="chapter-header">Chapter 5: The Verdict</h2>
+            
+            <button class="interactive-button" onclick="revealVerdict()">What Does The Tribe Think?</button>
+            
+            <div id="verdict" style="display: none;">
+                <div class="verdict">
+                    <h3>🎯 GUILTY! 🎯</h3>
+                    <p><strong>Crime:</strong> Suspicious excuse timing</p>
+                    <p><strong>Sentence:</strong> Bringing extra snacks next time! 🍰</p>
+                </div>
+                
+                <div class="reaction-box">
+                    <h3>The Tribe Says:</h3>
+                    <p>"Henna, we love you BUT... 👀"</p>
+                    <p>"What are you playing at, girl?! 🤔"</p>
+                    <p>"We see you! 👁️👁️"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chapter">
+            <h2 class="chapter-header">The End!</h2>
+            <p>And so the tribe learned about the mysterious world of "mandatory volunteering"! 📚</p>
+            
+            <div class="thinking-bubble">
+                "Next time just say you can't come, bestie! 🤷‍♀️"
+            </div>
+            
+            <p style="text-align: center; margin: 30px 0; font-size: 1.2rem; color: #e91e63;">
+                <strong>The group chat sees ALL! 👀💬</strong>
+            </p>
+            
+            <button class="interactive-button" onclick="celebrateEnding()">All love though! 💕</button>
+        </div>
+    </div>
+
+    <script>
+        function enterStory() {
+            const disclaimerScreen = document.getElementById('disclaimerScreen');
+            const storyContainer = document.getElementById('storyContainer');
+            
+            // Hide disclaimer with animation
+            disclaimerScreen.classList.add('hidden');
+            
+            // Show story after disclaimer animation
+            setTimeout(() => {
+                disclaimerScreen.style.display = 'none';
+                storyContainer.classList.add('visible');
+                updateCountdown();
+                
+                // Welcome message
+                setTimeout(() => {
+                    createEmojiRain(['🎉', '👯‍♀️', '📖', '✨']);
+                }, 500);
+            }, 800);
+        }
+
+        function exitSite() {
+            // Create dramatic exit effect
+            createEmojiRain(['😱', '🏃‍♀️', '💨', '👋']);
+            setTimeout(() => {
+                alert("Thanks for stopping by! Maybe next time you'll be ready for the drama! 😉");
+                // In a real website, you might redirect them somewhere
+                window.close(); // This may not work in all browsers due to security
+            }, 1000);
+        }
+
+        function showLogic() {
+            document.getElementById('logic-result').style.display = 'block';
+            createEmojiRain(['🤔', '❓', '🤯', '💭']);
+        }
+
+        function revealVerdict() {
+            document.getElementById('verdict').style.display = 'block';
+            createEmojiRain(['⚖️', '👩‍⚖️', '🎯', '📝']);
+        }
+
+        function celebrateEnding() {
+            createEmojiRain(['🎉', '👯‍♀️', '💃', '🎊', '✨']);
+            setTimeout(() => {
+                alert("Thanks for reading The Tribe Chronicles! 📖✨\n\nRemember: Good friends call out suspicious excuses with love! 💕");
+            }, 1000);
+        }
+
+        function createEmojiRain(emojis) {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji-rain';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 5000);
+                }, i * 200);
+            }
+        }
+
+        // Auto-update countdown
+        function updateCountdown() {
+            const countdownEl = document.getElementById('countdown');
+            if (countdownEl) {
+                const times = ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕'];
+                let index = 0;
+                
+                setInterval(() => {
+                    countdownEl.textContent = times[index];
+                    index = (index + 1) % times.length;
+                }, 1000);
+            }
+        }
+
+        // Initialize disclaimer screen animations
+        window.onload = function() {
+            // Add some floating emojis on disclaimer screen
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    createEmojiRain(['⚠️', '🚨', '💀']);
+                }
+            }, 3000);
+        };
+    </script>
+</body>
+</html>
